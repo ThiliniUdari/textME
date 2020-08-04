@@ -1,11 +1,78 @@
-import React from 'react'
-import { SafeAreaView,Text } from 'react-native'
+import React, { useState } from 'react'
+import { SafeAreaView,Text, View, TextInput } from 'react-native'
+import {globalStyle,color} from '../../utility'
+import {Logo, InputField, RoundCornerButton} from '../../component'
 
 const SignUp =({navigation})=>{
+
+    const [credentials,setCredentials,formData,setFormData] = useState({
+        name:'',
+        email:'',
+        password:'',
+        confPassword:''
+    })
+    const {name,email,password,confPassword}= credentials
+    
+    const onBtnPress=()=>{
+        if(!name){
+            alert("Name is required")
+        }
+        else if(!email){
+            alert("Email is required")
+        }else if(!password){
+            alert("Password is required")
+        }else if(password !== confPassword){
+            alert("Password is not matched")
+        }else{
+            alert(JSON.stringify(credentials))
+        }
+    }
+    const handleChange=(name,value)=>{
+        setCredentials({
+            ...credentials,
+            [name]:value
+        })
+    }
+
+   
     return(
-        <SafeAreaView>
-            <Text onPress={() => navigation.navigate('Dashboard')}>This is App SignUp</Text>
+        <SafeAreaView
+           style={{backgroundColor:color.THEME_CLR,flex:1}} 
+        >
+            <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+                <Logo/>
+            </View>
+            <View style={{justifyContent: 'center', alignItems: 'center',flex:2}}>
+                <InputField  placeholder="Name" style={{backgroundColor:color.BLACK}} 
+                value={name}
+                onChangeText={(text)=>handleChange('name',text)}
+                />
+                <InputField  placeholder="Email" style={{backgroundColor:color.BLACK}} 
+                value={email}
+                onChangeText={(text)=>handleChange('email',text)}
+                />
+                <InputField  placeholder="Password" secureTextEntry={true} 
+                value={password}
+                onChangeText={(text)=>handleChange('password',text)}
+                /> 
+                <InputField  placeholder="Confirm Password" secureTextEntry={true} 
+                value={confPassword}
+                onChangeText={(text)=>handleChange('confPassword',text)}
+                />
+
+                <RoundCornerButton title="SignUp" onPress={()=>onBtnPress()}/>
+                <Text 
+                style={{fontSize:18,
+                        fontWeight:"bold",
+                        color:color.BLUE
+                }}
+                onPress={()=>navigation.navigate('Login')}
+                >
+                Login 
+                </Text>           
+            </View>
         </SafeAreaView>
     )
 }
 export default SignUp;
+

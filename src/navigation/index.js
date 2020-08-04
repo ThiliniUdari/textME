@@ -23,7 +23,7 @@ function NavContainer(){
             >
                 <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
                 <Stack.Screen name='SignUp' component={SignUp} options={{headerShown:false}}/>
-                <Stack.Screen name='Dashboard' component={Dashboard} options={{headerLeft:false}}/>
+                <Stack.Screen name='Dashboard' component={Dashboard} options={{headerLeft:null}}/>
             </Stack.Navigator>
     );
 }
