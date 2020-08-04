@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "506493133580",
+    "firebase_url": "https://textme-621da.firebaseio.com",
+    "project_id": "textme-621da",
+    "storage_bucket": "textme-621da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506493133580:android:afe11da127cd17b8551f29",
+        "android_client_info": {
+          "package_name": "com.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506493133580-mn2975itv1uln61c84ideljm0732rt8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH8sUqj5otCAe7DSyeH-oiRpBOiE8eJAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506493133580-mn2975itv1uln61c84ideljm0732rt8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
