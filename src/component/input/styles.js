@@ -1,15 +1,15 @@
 import {StyleSheet} from "react-native"
-import {appStyle} from '../../utility'
+import {appStyle, color} from '../../utility'
 
 export default StyleSheet.create({
     input:{
         paddingLeft:16,
-        backgroundColor :appStyle.fieldBgColor,
+        backgroundColor :color.SILVER,
         width:"90%",
-        color:appStyle.fieldTextColor,
+        color:color.BLACK,
         height:appStyle.fieldHieght,
         alignSelf:"center",
         marginVertical: appStyle.fieldMarginVertical,
-        fontSize : 16
+        fontSize : 18
             }
 })

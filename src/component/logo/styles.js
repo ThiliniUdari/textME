@@ -8,14 +8,14 @@ const getDimensions = () => {
       height: 100,
       width: 300,
       borderRadius: 50,
-      logoFontSize: 90,
+      logoFontSize: 70,
     };
   } else {
     return {
       height: 80,
       width: 200,
       borderRadius: 40,
-      logoFontSize: 50,
+      logoFontSize: 30,
     };
   }
 };
