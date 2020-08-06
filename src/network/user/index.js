@@ -1,6 +1,6 @@
 import firbase from '../../firebase/config'
 
-const AddUser = async(name,email,uid,profileImg)=>{
+export const AddUser = async(name,email,uid,profileImg)=>{
     try{
         return await firbase
         .database()
@@ -16,4 +16,17 @@ const AddUser = async(name,email,uid,profileImg)=>{
         return(err)
     }
 }
-export default AddUser
+
+export const UpdateUser = async(uuid,imgSource)=>{
+    try{
+        return await firebase
+            .database()
+            .ref('users/'+uuid)
+            .update({
+                profileImg:imgSource
+            })
+    }catch(err){
+        return (err)
+    }
+
+}

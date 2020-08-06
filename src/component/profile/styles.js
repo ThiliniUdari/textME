@@ -11,7 +11,7 @@ const getDimensions = (key) => {
           width: 154,
           borderRadius: 77,
           borderWidth: 2,
-          borderColor: color.THEME_CLR,
+          borderColor: color.WHITE,
         };
       case "img":
         return {
@@ -74,12 +74,12 @@ export default StyleSheet.create({
   img: getDimensions("img"),
   editImgContainer: getDimensions("editImgContainer"),
   name: {
-    color: appStyle.fieldTextColor,
+    color: color.WHITE,
     fontSize: 100,
     fontWeight: "bold",
   },
   welcome: {
-    color: appStyle.fieldTextColor,
+    color: color.THEME_CLR,
     fontSize: 24,
     fontWeight: "bold",
     padding: 10,
