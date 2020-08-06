@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { SafeAreaView,Text, View, TextInput } from 'react-native'
 import {globalStyle,color} from '../../utility'
 import {Logo, InputField, RoundCornerButton} from '../../component'
+import { Store } from "../../context/store";
+import {LOADING_START, LOADING_STOP} from '../../context/actions/types';
+import { SignUpRequest, AddUser } from '../../network';
+import {setAsyncStorage,keys } from '../../asyncStorage'
+import { setUniqueValue} from '../../utility/constants';
+import firebase from '../../firebase/config'
 
 const SignUp =({navigation})=>{
+
+    const globalState = useContext(Store);
+    const { dispatchLoaderAction } = globalState;
 
     const [credentials,setCredentials,formData,setFormData] = useState({
         name:'',
@@ -16,15 +25,42 @@ const SignUp =({navigation})=>{
     const onBtnPress=()=>{
         if(!name){
             alert("Name is required")
-        }
-        else if(!email){
+        }else if(!email){
             alert("Email is required")
         }else if(!password){
             alert("Password is required")
         }else if(password !== confPassword){
             alert("Password is not matched")
         }else{
-            alert(JSON.stringify(credentials))
+            dispatchLoaderAction({
+                type:LOADING_START
+            })
+            SignUpRequest(email,password)
+            .then(()=>{
+                let uid=firebase.auth().currentUser.uid;
+                let profileImg='';
+                AddUser(name,email,uid,profileImg)
+                .then(()=>{
+                    setAsyncStorage(keys.uuid,uid)
+                    setUniqueValue(uid)
+                    dispatchLoaderAction({
+                        type:LOADING_STOP
+                    })
+                    navigation.replace('Dashboard')
+                })
+                .catch((err)=>{
+                    dispatchLoaderAction({
+                        type:LOADING_STOP
+                    })
+                    alert(err)
+                })
+            })
+            .catch((err)=>{
+                dispatchLoaderAction({
+                    type:LOADING_STOP
+                })
+                alert(err)
+            })
         }
     }
     const handleChange=(name,value)=>{

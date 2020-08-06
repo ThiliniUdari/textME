@@ -13,7 +13,7 @@ function NavContainer(){
             initialRouteName ='Login'
             screenOptions= {{
                 headerShown:true,
-                headerStyle:{backgroundColor:color.DARK_GREY},
+                headerStyle:{backgroundColor:color.THEME_CLR},
                 headerTintColor:color.WHITE,
                 headerTitleAlign:'center',
                 headerTitleStyle:{
@@ -24,7 +24,7 @@ function NavContainer(){
             >
                 <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
                 <Stack.Screen name='SignUp' component={SignUp} options={{headerShown:false}}/>
-                <Stack.Screen name='Dashboard' component={Dashboard} options={{headerLeft:null}}/>
+                <Stack.Screen name='Dashboard' component={Dashboard} options={{headerLeft:null,headerShown:true }}/>
             </Stack.Navigator>
             </NavigationContainer>
     );
