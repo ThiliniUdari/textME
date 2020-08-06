@@ -4,7 +4,11 @@ import {appStyle, color} from '../../utility'
 export default StyleSheet.create({
     input:{
         paddingLeft:16,
-        backgroundColor :color.SILVER,
+        backgroundColor :color.WHITE,
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
         width:"90%",
         color:color.BLACK,
         height:appStyle.fieldHieght,

@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useContext, useState, useEffect } from 'react'
 import { View,Text, Alert, SafeAreaView, FlatList } from 'react-native'
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons'
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { color } from '../../utility'
 import { LogOutUser } from '../../network'
 import { clearAsyncStorage } from '../../asyncStorage'
@@ -9,6 +10,7 @@ import {Store} from '../../context/store'
 import {LOADING_START,LOADING_STOP} from '../../context/actions/types'
 import {uuid} from '../../utility/constants'
 import {Profile, ShowUsers} from '../../component'
+import ImagePicker from 'react-native-image-picker'
 
 const Dashboard =({navigation})=>{
 
@@ -47,6 +49,15 @@ const Dashboard =({navigation})=>{
                     )}
                 />
             ),
+            headerLeft:()=>(
+                <FontAwesome5
+                name="user-edit"
+                style={{left:10}}
+                size={20}
+                color={color.WHITE}
+                // onPress={()}
+              />
+            )
         });
     },[navigation]);
 
@@ -105,9 +116,28 @@ const Dashboard =({navigation})=>{
         .catch((err)=>{alert(err)})
 
     }
+    /* on name tap */
+
+    const nameTap =(profileImg,name,guestUserId)=>{
+        if(!profileImg){
+            navigation.navigate('Chat',{
+                name,
+                imgText:name.charAt(0),
+                guestUserId,
+                currentUserId:uuid
+            })
+        }else{
+            navigation.navigate('Chat',{
+                name,
+                img:profileImg,
+                guestUserId,
+                currentUserId:uuid
+            })
+        }
+    }
 
     return(
-        <SafeAreaView style={[{flex:1,backgroundColor:color.WHITE}]}>
+        <SafeAreaView style={[{flex:1,backgroundColor:color.LIGHT_BLUE}]}>
             <FlatList
             alwaysBounceVertical={false}
             data={allUsers}
@@ -121,7 +151,9 @@ const Dashboard =({navigation})=>{
             renderItem={({item})=>(
                 <ShowUsers 
                 name={item.name} 
-                img={item.profileImg}/>
+                img={item.profileImg}
+                onNameTap={()=>nameTap(item.profileImg,item.name,item.id)}
+                />
             )}
             />
 
