@@ -38,7 +38,7 @@ const Loader = () => {
   const globalState = useContext(Store);
   const { mapLoaderState } = globalState;
   const { loading } = mapLoaderState;
-
+  // let loading =false;
   return loading ? (
     <View style={styles.loaderContainer}>
       <View style={styles.indicator}>

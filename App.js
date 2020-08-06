@@ -7,13 +7,14 @@ import { Text,View } from "react-native";
 import Nav from './src/navigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { Loader } from './src/component';
+import {StoreProvider} from './src/context/store'
 
 const App=()=>{
   return(
-    <Fragment>
+    <StoreProvider>
       <Nav/>
       <Loader/>
-    </Fragment>
+    </StoreProvider>
 
   )
 }

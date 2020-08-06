@@ -3,7 +3,7 @@ import React, {useReducer} from 'react';
 import {Loader} from '../reducers';
 
 export const Store = React.createContext();
-
+ 
 const dispatch = {};
 
 export function StoreProvider(props) {
