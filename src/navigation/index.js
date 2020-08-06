@@ -8,6 +8,7 @@ const Stack = createStackNavigator();
 
 function NavContainer(){
     return(
+        <NavigationContainer>
             <Stack.Navigator 
             initialRouteName ='Login'
             screenOptions= {{
@@ -25,6 +26,7 @@ function NavContainer(){
                 <Stack.Screen name='SignUp' component={SignUp} options={{headerShown:false}}/>
                 <Stack.Screen name='Dashboard' component={Dashboard} options={{headerLeft:null}}/>
             </Stack.Navigator>
+            </NavigationContainer>
     );
 }
 export default NavContainer;

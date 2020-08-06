@@ -1,6 +1,7 @@
-export let uuid ='';
-export const smallDEviceHieght = 650;
+export let uuid = "";
+export let keyboardVerticalOffset = -50;
+export const smallDeviceHeight = 650;
 
-export const setUniqueValue = (id) =>{
-    uuid=id 
-}
+export const setUniqueValue = (u) => {
+  uuid = u;
+};
