@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {appStyle} from '../../../utility';
+import {appStyle, color} from '../../../utility';
 
 export default StyleSheet.create({
   btn: {
-    backgroundColor: appStyle.fieldBgColor,
+    backgroundColor:color.BLUE,
     width: '90%',
     height: appStyle.btnHeight,
     borderRadius: appStyle.btnBorderRadius,

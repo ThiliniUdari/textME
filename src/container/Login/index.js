@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState ,useContext} from 'react'
 import { SafeAreaView,Text, View, TextInput } from 'react-native'
 import {globalStyle,color} from '../../utility'
 import {Logo, InputField, RoundCornerButton} from '../../component'
+import { Store } from "../../context/store";
+import {LOADING_START, LOADING_STOP} from '../../context/actions/types';
+import { LoginRequest } from '../../network';
+import { setAsyncStorage, keys } from '../../asyncStorage';
+import { setUniqueValue } from '../../utility/constants';
 
 const Login =({navigation})=>{
+
+    const globalState = useContext(Store);
+    const { dispatchLoaderAction } = globalState;
 
     const [credentials,setCredentials,formData,setFormData] = useState({
         email:'',
@@ -17,7 +25,31 @@ const Login =({navigation})=>{
         }else if(!password){
             alert("Password is required")
         }else{
-            alert(JSON.stringify(credentials))
+            dispatchLoaderAction({
+                type:LOADING_START
+            })
+            LoginRequest(email,password)
+            .then((res)=>{
+                if(!res.additionalUserInfo){
+                    dispatchLoaderAction({
+                        type:LOADING_STOP
+                    })
+                    alert(res)
+                    return;
+                }
+                setAsyncStorage(keys.uuid,res.user.uid)
+                setUniqueValue(res.user.uid)
+                dispatchLoaderAction({
+                    type:LOADING_STOP
+                })
+                navigation.replace('Dashboard')
+            })
+            .catch((err)=>{
+                dispatchLoaderAction({
+                    type:LOADING_STOP
+                })
+                alert(err)
+            })
         }
     }
     const handleChange=(name,value)=>{

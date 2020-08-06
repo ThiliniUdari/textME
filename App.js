@@ -2,16 +2,19 @@
  * React Native App for communicate among frinds and co-workers
  */
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Text,View } from "react-native";
 import Nav from './src/navigation';
 import { NavigationContainer } from '@react-navigation/native';
+import { Loader } from './src/component';
+import {StoreProvider} from './src/context/store'
 
 const App=()=>{
   return(
-    <NavigationContainer>
-      <Nav></Nav>
-    </NavigationContainer>
+    <StoreProvider>
+      <Nav/>
+      <Loader/>
+    </StoreProvider>
 
   )
 }
