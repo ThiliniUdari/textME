@@ -1,10 +1,10 @@
 import * as React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
-import {Login,SignUp,Dashboard, Splash} from'../container'
+import {Login,SignUp,Dashboard, Splash,EditProfile} from'../container'
 import {color} from '../utility'
 import Chat from '../container/Chat'
-
+import ShowProfile from '../container/ShowProfile'
 const Stack = createStackNavigator();
 
 function NavContainer(){
@@ -28,6 +28,8 @@ function NavContainer(){
                 <Stack.Screen name='SignUp' component={SignUp} options={{headerShown:false}}/>
                 <Stack.Screen name='Dashboard' component={Dashboard} options={{headerTitle:'textME',headerLeft:null,headerShown:true }}/>
                 <Stack.Screen name='Chat' component={Chat} options={{headerBackTitle:null,}}/>
+                <Stack.Screen name='ShowProfile' component={ShowProfile} options={{headerBackTitle:null }}/>
+                <Stack.Screen name='EditProfile' component={EditProfile} options={{headerBackTitle:null,}}/>
             </Stack.Navigator>
             </NavigationContainer>
     );

@@ -24,7 +24,7 @@ export default ({
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         placeholderTextColor={
-            placeholderTextColor ? placeholderTextColor:color.BLACK
+           color.SILVER
         }
         onSubmitEditing={onSubmitEditing}
         onBlur={onBlur}

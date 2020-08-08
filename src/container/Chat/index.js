@@ -7,6 +7,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ChatBox from "../../component/chatBox";
 import firebase from '../../firebase/config'
 import { senderMsg ,receiverMsg} from "../../network";
+import ImagePicker from 'react-native-image-picker'
+
 
 const Chat =({route , navigation}) =>{
     const {params}=route;
@@ -61,23 +63,45 @@ const Chat =({route , navigation}) =>{
 
     }
     const handleCamera=()=>{
-        // const option={
-        //     storageOptions:{
-        //         skipBackup:true
-        //     }
-        // };
+        const option={
+            storageOptions:{
+                skipBackup:true
+            }
+        };
 
-        // ImagePickerIOS, showImagePicker(option,(response)=>{
-        //     if(response.didCancel){
-        //         console.log('User cancel imagee picker');
-        //     }else if(response.error){
-        //         console.log('image picker error',response.error);
-        //     }else{
-        //         //Base Id
-        //     }
-        // })
+        ImagePicker.showImagePicker(option,(response)=>{
+            if(response.didCancel){
+                console.log("User cancel Image Picker");
+            }else if(response.error){
+                console.log("Image Picker error",response.error)
+            }else{
+                let source = "data:image/jpeg;base64," + response.data;
+
+                senderMsg(msgValue,currentUserId,guestUserId,source)
+                .then(()=>{})
+                .catch((err)=>alert(err))
+    
+                receiverMsg(msgValue,currentUserId,guestUserId,source)
+                .then(()=>{})
+                .catch((err)=>alert(err))
+            }
+        })
 
     }
+
+    const imgTap =(profileImg)=>{
+        if(!profileImg){
+            navigation.navigate('ShowProfile',{
+                imgText:"NoImage"
+            })
+        }else{
+            navigation.navigate('ShowProfile',{
+                
+                img:profileImg
+            })
+        }
+    }
+
     const handleOnChange=(text)=>{
         setMsgValue(text)
     }

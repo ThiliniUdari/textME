@@ -3,7 +3,7 @@ import { View,Text, Alert, SafeAreaView, FlatList } from 'react-native'
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons'
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { color } from '../../utility'
-import { LogOutUser } from '../../network'
+import { LogOutUser, UpdateUser } from '../../network'
 import { clearAsyncStorage } from '../../asyncStorage'
 import firebase from '../../firebase/config'
 import {Store} from '../../context/store'
@@ -49,15 +49,19 @@ const Dashboard =({navigation})=>{
                     )}
                 />
             ),
-            headerLeft:()=>(
-                <FontAwesome5
-                name="user-edit"
-                style={{left:10}}
-                size={20}
-                color={color.WHITE}
-                // onPress={()}
-              />
-            )
+            // headerLeft:()=>(
+            //     <FontAwesome5
+            //     name="user-edit"
+            //     style={{left:10}}
+            //     size={20}
+            //     color={color.WHITE}
+            //     onPress={navigation.navigate('EditProfile',{
+            //         name,
+            //         imgText:name.charAt(0),
+            //         currentUserId:uuid
+            //     })}
+            //   />
+            // )
         });
     },[navigation]);
 
@@ -103,6 +107,46 @@ const Dashboard =({navigation})=>{
         }
     },[])
  
+    /* Profile Edit Tapped*/
+    const selectImgTapped =()=>{
+        const option ={
+            storageOption:{
+                skipBackup:true
+            }
+        }
+        ImagePicker.showImagePicker(option,(response)=>{
+            if(response.didCancel){
+                console.log("User cancel Image Picker");
+            }else if(response.error){
+                console.log("Image Picker error",response.error)
+            }else{
+                let source = "data:image/jpeg;base64," + response.data;
+   
+                dispatchLoaderAction({
+                  type: LOADING_START,
+                });     
+                UpdateUser(uuid,source)
+                .then(()=>{
+                    setUserDetails({
+                        ...userDetails,
+                        profileImg:source
+                    });
+                    dispatchLoaderAction({
+                        type: LOADING_STOP,
+                      });
+                    //   clearAsyncStorage()
+                })
+                .catch((err)=>{
+                    dispatchLoaderAction({
+                        type: LOADING_STOP,
+                      });  
+                      alert(err)
+                })       
+            
+            }
+        })
+    }
+
     /*User Logout */
     const logout =()=>{
         LogOutUser()
@@ -115,6 +159,20 @@ const Dashboard =({navigation})=>{
         })
         .catch((err)=>{alert(err)})
 
+    }
+    /* on image tap */
+    const imgTap =(profileImg,name)=>{
+        if(!profileImg){
+            navigation.navigate('ShowProfile',{
+                name,
+                imgText:name.charAt(0)
+            })
+        }else{
+            navigation.navigate('ShowProfile',{
+                name,
+                img:profileImg
+            })
+        }
     }
     /* on name tap */
 
@@ -145,14 +203,21 @@ const Dashboard =({navigation})=>{
             ListHeaderComponent ={
                 <Profile 
                     img={profileImg}
+                    onImgTap={() => imgTap(profileImg, name)}
                     name={name}
+                    onEditImgTap={()=>selectImgTapped()}
+
+                    
                 />
+
             }
             renderItem={({item})=>(
                 <ShowUsers 
                 name={item.name} 
                 img={item.profileImg}
                 onNameTap={()=>nameTap(item.profileImg,item.name,item.id)}
+                onImgTap={() => imgTap(item.profileImg, item.name)}
+
                 />
             )}
             />
