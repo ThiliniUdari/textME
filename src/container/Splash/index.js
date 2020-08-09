@@ -4,6 +4,7 @@ import {Logo} from '../../component'
 import { globalStyle,color } from '../../utility'
 import { getAsyncStorage, keys } from '../../asyncStorage'
 import { setUniqueValue } from '../../utility/constants'
+import { Text, Card } from 'native-base'
 
 const Splash =({navigation})=>{
     useEffect(()=>{
@@ -21,7 +22,7 @@ const Splash =({navigation})=>{
                 console.log(err)
                 navigation.replace('Login')
             })
-        },3000)
+        },5000)
         return()=>clearTimeout(redirect)
     },[navigation])
     return(
@@ -29,6 +30,24 @@ const Splash =({navigation})=>{
         alignItems: 'center',
         flex: 1,backgroundColor:color.THEME_CLR}]}>
             <Logo/>
+           <View style={{
+                // alignContent:'flex-end',
+                alignItems: 'center',
+                justifyContent:'center',alignContent:'center',
+                marginTop:400,
+                marginBottom:10
+           }}>
+            <Text style={{
+                // alignContent:'flex-end',
+                color:color.LIGHT_BLUE,
+                fontSize:30,
+                fontWeight:'bold',
+                
+                }}>H.K.T.Udarika</Text> 
+            <Text style={{ color:color.LIGHT_BLUE,
+                fontSize:30,
+                fontWeight:'bold',}}>17001803</Text>
+            </View>
         </View>
     )
 }
