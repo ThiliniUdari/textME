@@ -28,6 +28,7 @@ export default StyleSheet.create({
     backgroundColor: color.WHITE,
     alignItems: "center",
     justifyContent: "center",
+   
   },
   text: {
     fontSize: getDimensions().logoFontSize,
